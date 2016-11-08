@@ -12,7 +12,7 @@ The idea of the app is simple: Simple Quiz
  
   <img src="https://github.com/mvalbuquerque/AppQuiz-Swift/blob/master/2.png" width="200"/>
 
-  <img src="https://github.com/mvalbuquerque/AppQuiz-Swift/blob/master/2.png" width="200"/>
+  <img src="https://github.com/mvalbuquerque/AppQuiz-Swift/blob/master/3.png" width="200"/>
 </p>
 
 Tks, 
