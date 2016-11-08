@@ -81,9 +81,10 @@ class ViewController: UIViewController {
     }
     
     func startQuiz()  {
-    
-    questions.shuffle() //Embaralha o vetor de questões
-        for(var i=0;i<questions.count;i++) {
+       
+        
+        questions.shuffle() //Embaralha o vetor de questões
+        for i in 0 ..< questions.count {
         questions[i].answers.shuffle() //Embaralha o vetor de respostas para cada questão.
         
         }
@@ -98,30 +99,30 @@ class ViewController: UIViewController {
     }
     
     //Atualiza o label de questão, imagem e texto dos 3 botões de alternativas
-    func showQuestion(questionid :Int){
+    func showQuestion(_ questionid :Int){
     
     //Habilitando os 3 botões das alternativas
-    btnAnswer1.enabled = true
-    btnAnswer2.enabled = true
-    btnAnswer3.enabled = true
+    btnAnswer1.isEnabled = true
+    btnAnswer2.isEnabled = true
+    btnAnswer3.isEnabled = true
     
     lbQuestion.text = questions[questionid].strQuestion
     imgQuestion.image = questions[questionid].imgQuestion
-    btnAnswer1.setTitle(questions[questionid].answers[0].strAnswer, forState: UIControlState.Normal)
-    btnAnswer2.setTitle(questions[questionid].answers[1].strAnswer, forState: UIControlState.Normal)
-    btnAnswer3.setTitle(questions[questionid].answers[2].strAnswer, forState: UIControlState.Normal)
+    btnAnswer1.setTitle(questions[questionid].answers[0].strAnswer, for: UIControlState())
+    btnAnswer2.setTitle(questions[questionid].answers[1].strAnswer, for: UIControlState())
+    btnAnswer3.setTitle(questions[questionid].answers[2].strAnswer, for: UIControlState())
     
     
     }
     
     // Função que seleciona uma alternativa
-    func selectAnswer(answerid : Int) {
-    btnAnswer1.enabled = false
-    btnAnswer2.enabled = false
-    btnAnswer3.enabled = false
+    func selectAnswer(_ answerid : Int) {
+    btnAnswer1.isEnabled = false
+    btnAnswer2.isEnabled = false
+    btnAnswer3.isEnabled = false
         
         //Mostra a view de feedback
-        viewFeedback.hidden = false
+        viewFeedback.isHidden = false
     
         //Seleciona a resposta
         let answer : Answer = questions[currentQuestion].answers[answerid]
@@ -139,12 +140,12 @@ class ViewController: UIViewController {
         }
         if(currentQuestion < questions.count-1) {
         // Caso a questão atual não seja a última, atualiza o texto do botão feedback para "Próxima"
-        btnFeedback.setTitle("Próxima", forState: UIControlState.Normal)
+        btnFeedback.setTitle("Próxima", for: UIControlState())
         }
         else
         {
         //Caso a questão atual seja a última o texto do botão feedback para "Ver Nota"
-        btnFeedback.setTitle("Ver Nota", forState: UIControlState.Normal)
+        btnFeedback.setTitle("Ver Nota", for: UIControlState())
             
         }
         
@@ -155,7 +156,7 @@ class ViewController: UIViewController {
     
     
     //Ação do botão resposta 1
-    @IBAction func choosebtnAnswer1(sender: AnyObject) {
+    @IBAction func choosebtnAnswer1(_ sender: AnyObject) {
         
         
         selectAnswer(0)
@@ -164,14 +165,14 @@ class ViewController: UIViewController {
     
     
     //Ação do botão resposta 2
-    @IBAction func ChoosebtnAnswer2(sender: AnyObject) {
+    @IBAction func ChoosebtnAnswer2(_ sender: AnyObject) {
         
         selectAnswer(1)
     }
     
     
     //Ação do botão resposta 3
-    @IBAction func choosebtnAnswer3(sender: AnyObject) {
+    @IBAction func choosebtnAnswer3(_ sender: AnyObject) {
         
         selectAnswer(2)
     }
@@ -179,9 +180,9 @@ class ViewController: UIViewController {
     
     
     
-    @IBAction func btnFeedbackAction(sender: AnyObject) {
+    @IBAction func btnFeedbackAction(_ sender: AnyObject) {
         
-        viewFeedback.hidden = true
+        viewFeedback.isHidden = true
         
         if(quizEnded) {
         
@@ -201,7 +202,7 @@ class ViewController: UIViewController {
     
     func  nextQuestion(){
         //Incrementa em 1 o valor da variável de questão atual
-        currentQuestion++
+        currentQuestion += 1
         
         if(currentQuestion < questions.count) {
             
@@ -221,9 +222,9 @@ class ViewController: UIViewController {
             //Calcula a nota do jogador de 0 a 100
             grade = grade / Double(questions.count) * 100.0
             quizEnded = true
-            viewFeedback.hidden = false
+            viewFeedback.isHidden = false
             lbFeedback.text = "Sua Nota: \(grade)"
-            btnFeedback.setTitle("Refazer", forState: UIControlState.Normal)
+            btnFeedback.setTitle("Refazer", for: UIControlState())
             
             
         }

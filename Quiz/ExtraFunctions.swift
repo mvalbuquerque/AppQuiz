@@ -7,7 +7,7 @@ extension Array
     {
         for _ in 0..<10
         {
-            sortInPlace { (_,_) in arc4random() < arc4random() }
+            sort { (_,_) in arc4random() < arc4random() }
         }
     }
 }
