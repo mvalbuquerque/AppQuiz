@@ -4,7 +4,7 @@
 //
 //  Created by Marcos Vinicius Albuquerque on 11/26/15.
 //  Copyright © 2015 Marcos Vinicius Albuquerque. All rights reserved.
-//
+//  Update in 11/08/2016
 
 import UIKit
 
@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //Arraste a label aqui
     
     @IBOutlet weak var lbQuestion: UILabel!
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lbFeedback: UILabel!
     @IBOutlet weak var btnFeedback: UIButton!
     
-
+    
     //Declarando um vetor de questões
     var questions : [Question]!   // Vetor que contém as questões do quiz
     var currentQuestion = 0       // Int que indica qual questão atual
@@ -44,12 +44,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
+        btnFeedback.setTitle("Próxima", for: UIControlState())
         
         let q0answer0 = Answer(answer: "120 anos", isCorrect: true)
         let q0answer1 = Answer(answer: "130 anos", isCorrect: false)
         let q0answer2 = Answer(answer: "140 anos", isCorrect: false)
-       
+        
         let question0 = Question (question: "Quantos anos vive em média um elefante africano?", strImageFileName: "elefante", answers: [q0answer0,q0answer1,q0answer2])
         
         
@@ -81,12 +81,12 @@ class ViewController: UIViewController {
     }
     
     func startQuiz()  {
-       
+        
         
         questions.shuffle() //Embaralha o vetor de questões
         for i in 0 ..< questions.count {
-        questions[i].answers.shuffle() //Embaralha o vetor de respostas para cada questão.
-        
+            questions[i].answers.shuffle() //Embaralha o vetor de respostas para cada questão.
+            
         }
         
         //reseta as variáveis de progresso do usuário
@@ -100,52 +100,52 @@ class ViewController: UIViewController {
     
     //Atualiza o label de questão, imagem e texto dos 3 botões de alternativas
     func showQuestion(_ questionid :Int){
-    
-    //Habilitando os 3 botões das alternativas
-    btnAnswer1.isEnabled = true
-    btnAnswer2.isEnabled = true
-    btnAnswer3.isEnabled = true
-    
-    lbQuestion.text = questions[questionid].strQuestion
-    imgQuestion.image = questions[questionid].imgQuestion
-    btnAnswer1.setTitle(questions[questionid].answers[0].strAnswer, for: UIControlState())
-    btnAnswer2.setTitle(questions[questionid].answers[1].strAnswer, for: UIControlState())
-    btnAnswer3.setTitle(questions[questionid].answers[2].strAnswer, for: UIControlState())
-    
-    
+        
+        //Habilitando os 3 botões das alternativas
+        btnAnswer1.isEnabled = true
+        btnAnswer2.isEnabled = true
+        btnAnswer3.isEnabled = true
+        
+        lbQuestion.text = questions[questionid].strQuestion
+        imgQuestion.image = questions[questionid].imgQuestion
+        btnAnswer1.setTitle(questions[questionid].answers[0].strAnswer, for: UIControlState())
+        btnAnswer2.setTitle(questions[questionid].answers[1].strAnswer, for: UIControlState())
+        btnAnswer3.setTitle(questions[questionid].answers[2].strAnswer, for: UIControlState())
+        
     }
     
     // Função que seleciona uma alternativa
     func selectAnswer(_ answerid : Int) {
-    btnAnswer1.isEnabled = false
-    btnAnswer2.isEnabled = false
-    btnAnswer3.isEnabled = false
+        btnAnswer1.isEnabled = false
+        btnAnswer2.isEnabled = false
+        btnAnswer3.isEnabled = false
         
         //Mostra a view de feedback
         viewFeedback.isHidden = false
-    
+        
         //Seleciona a resposta
         let answer : Answer = questions[currentQuestion].answers[answerid]
         
         if(answer.isCorrect == true) {
-        grade = grade + 1.0 // coma 1 ponto caso a resposta esteja correta
-      
-         // Quando acertar a resposta
-        lbFeedback.text = answer.strAnswer + "\n\nResposta correta!"
+            grade = grade + 1.0 // coma 1 ponto caso a resposta esteja correta
+            
+            // Quando acertar a resposta
+            lbFeedback.text = answer.strAnswer + "\n\nResposta correta!"
         }
         else
         {
-        // Quando a resposta esta errada
-        lbFeedback.text = answer.strAnswer + "\n\nRespota Errada"
+            // Quando a resposta esta errada
+            lbFeedback.text = answer.strAnswer + "\n\nRespota Errada"
         }
         if(currentQuestion < questions.count-1) {
-        // Caso a questão atual não seja a última, atualiza o texto do botão feedback para "Próxima"
-        btnFeedback.setTitle("Próxima", for: UIControlState())
+            // Caso a questão atual não seja a última, atualiza o texto do botão feedback para "Próxima"
+            
+            btnFeedback.setTitle("Próxima", for: UIControlState())
         }
         else
         {
-        //Caso a questão atual seja a última o texto do botão feedback para "Ver Nota"
-        btnFeedback.setTitle("Ver Nota", for: UIControlState())
+            //Caso a questão atual seja a última o texto do botão feedback para "Ver Nota"
+            btnFeedback.setTitle("Ver Nota", for: UIControlState())
             
         }
         
@@ -176,7 +176,7 @@ class ViewController: UIViewController {
         
         selectAnswer(2)
     }
-
+    
     
     
     
@@ -185,15 +185,15 @@ class ViewController: UIViewController {
         viewFeedback.isHidden = true
         
         if(quizEnded) {
-        
-        startQuiz()
-        
-        }else
-        
+            
+            startQuiz()
+            
+        }
+        else
         {
-        
-        nextQuestion()
-        
+            
+            nextQuestion()
+            
         }
         
     }
@@ -217,18 +217,18 @@ class ViewController: UIViewController {
         
     }
     
-
+    
     func endQuiz() {
-            //Calcula a nota do jogador de 0 a 100
-            grade = grade / Double(questions.count) * 100.0
-            quizEnded = true
-            viewFeedback.isHidden = false
-            lbFeedback.text = "Sua Nota: \(grade)"
-            btnFeedback.setTitle("Refazer", for: UIControlState())
-            
-            
-        }
+        //Calcula a nota do jogador de 0 a 100
+        grade = grade / Double(questions.count) * 100.0
+        quizEnded = true
+        viewFeedback.isHidden = false
+        lbFeedback.text = "Sua Nota: \(grade)"
+        btnFeedback.setTitle("Refazer", for: UIControlState())
+        
         
     }
+    
+}
 
 
